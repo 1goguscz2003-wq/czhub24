@@ -1,6 +1,7 @@
 (()=>{'use strict';
 const CFG={
-  analyticsEndpoint:null,
+  analyticsEndpoint:'https://cishmtektnuvjxyuetvm.supabase.co/rest/v1/analytics_events',
+  supabaseKey:'sb_publishable_F9lya4xhIKkXcpjhWXvaNg_l-nBZT8g',
   contestUrl:'https://t.me/czhub24',
   platforms:{telegram:'https://t.me/czhub24',whatsapp:'https://chat.whatsapp.com/G0YbngLJZs62JZ8QLef0mj',viber:'https://invite.viber.com/?g2=AQBEyu%2BkYLoW5lbe0flu%2BPnAUDrUZUpv64chJAs9SWpAFdDAF2TzTHJG0yqUd2xn'},
   routes:{},
@@ -44,9 +45,11 @@ const cityName=(id)=>I18N[state.lang].cityNames[id]||id;
 const catName=(id)=>I18N[state.lang].catNames[id]||id;
 
 function track(type,data={}){
-  const evt={version:'v9-surreal-flow',type,ts:new Date().toISOString(),source,campaign,sessionId:sid,city:state.city?.id||null,category:state.category?.id||null,lang:state.lang,device:innerWidth<=600?'phone':innerWidth<=1024?'tablet':'desktop',viewport:`${innerWidth}x${innerHeight}`,...data};
+  const evt={version:'v10-supabase',type,ts:new Date().toISOString(),source,campaign,sessionId:sid,city:state.city?.id||null,category:state.category?.id||null,lang:state.lang,device:innerWidth<=600?'phone':innerWidth<=1024?'tablet':'desktop',viewport:`${innerWidth}x${innerHeight}`,...data};
   try{const k='czhub24_analytics',a=JSON.parse(localStorage.getItem(k)||'[]');a.push(evt);localStorage.setItem(k,JSON.stringify(a.slice(-3000)));renderDebug()}catch{}
-  if(CFG.analyticsEndpoint){try{navigator.sendBeacon(CFG.analyticsEndpoint,new Blob([JSON.stringify(evt)],{type:'application/json'}))}catch{}}
+  if(CFG.analyticsEndpoint&&CFG.supabaseKey){
+    fetch(CFG.analyticsEndpoint,{method:'POST',headers:{'apikey':CFG.supabaseKey,'Authorization':`Bearer ${CFG.supabaseKey}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({data:evt}),keepalive:true}).catch(()=>{});
+  }
 }
 function toast(text){const e=$('#toast');e.textContent=text;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),1500)}
 function modal(title,html){$('#modalTitle').textContent=title;$('#modalBody').innerHTML=html;$('#modal').hidden=false;track('panel_open',{panel:title})}

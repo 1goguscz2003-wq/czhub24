@@ -1,15 +1,7 @@
-# CZHUB24 v9 — Surreal Flow
+# CZHUB24 v10 — Supabase Analytics
 
-Interactive single-screen CZHUB24 hub with cinematic step navigation:
-city → category → messenger.
+Analytics is connected to Supabase table `public.analytics_events`.
+Each event is inserted as one row into the `data` JSONB column.
+The browser also keeps a local debug copy.
 
-- RU / CZ / UA language switching
-- animated map focus on selected city
-- category reveal after city selection
-- messenger reveal after category selection
-- softer surreal blue/violet palette
-- Telegram / WhatsApp / Viber routing
-- contest flow with 3–5 referrals
-- local analytics event log + optional analyticsEndpoint
-- QR source tracking via ?src=...
-- responsive desktop and phone layouts
+Test URL: add `?src=test&debug=1`.
