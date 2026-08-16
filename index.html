@@ -94,5 +94,39 @@
 
   <div id="modal" class="modal" hidden><div class="modalCard"><button id="closeModal" class="closeModal">×</button><div class="modalKicker">CZHUB24 // NETWORK WINDOW</div><h2 id="modalTitle"></h2><div id="modalBody"></div></div></div>
   <script src="./app.js" defer></script>
+
+<script>
+(function(){
+  const GIVEAWAY_URL = "https://t.me/CZHUB24Bot?start=contest";
+  function trackGiveaway(source){
+    try {
+      if (typeof window.track === "function") window.track("giveaway_click", {source});
+      else {
+        const key="czhub24_events";
+        const events=JSON.parse(localStorage.getItem(key)||"[]");
+        events.push({type:"giveaway_click",source,ts:new Date().toISOString()});
+        localStorage.setItem(key,JSON.stringify(events.slice(-300)));
+      }
+    } catch(e) {}
+  }
+  function bindGiveaway(el, source){
+    if(!el || el.dataset.czGiveawayBound) return;
+    el.dataset.czGiveawayBound="1";
+    el.addEventListener("click", function(e){
+      e.preventDefault();
+      trackGiveaway(source);
+      setTimeout(()=>{ window.location.href=GIVEAWAY_URL; }, 80);
+    });
+  }
+  document.addEventListener("DOMContentLoaded",()=>{
+    document.querySelectorAll('a[href*="CZHUB24Bot"], [data-giveaway], .giveaway-btn, .contest-btn').forEach((el,i)=>bindGiveaway(el, el.dataset.source||("site_"+i)));
+    [...document.querySelectorAll("a,button")].forEach((el,i)=>{
+      const t=(el.textContent||"").toLowerCase();
+      if(t.includes("конкурс")||t.includes("розыгрыш")||t.includes("участвовать")) bindGiveaway(el, el.dataset.source||("text_"+i));
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
