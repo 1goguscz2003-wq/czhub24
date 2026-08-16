@@ -1,60 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="CZHUB24 — крупнейшее русскоязычное сообщество Чехии. Работа, жильё, фушки, маркет, авто и услуги в одном переходнике."
-    />
-    <meta
-      name="keywords"
-      content="работа в Чехии, жильё в Чехии, фушки в Чехии, русскоязычное сообщество Чехии"
-    />
-    <meta name="theme-color" content="#05070d" />
-    <title>CZHUB24 — переходник сообщества</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <canvas id="bg-canvas" aria-hidden="true"></canvas>
-    <main class="page-shell">
-      <div class="top-controls">
-        <div class="lang-switch" role="group" aria-label="Язык">
-          <button id="btn-ru" class="lang-btn" data-lang="ru">RU</button>
-          <button id="btn-ua" class="lang-btn" data-lang="ua">UA</button>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#02050b" />
+  <title>CZHUB24 Network</title>
+  <meta name="description" content="CZHUB24 — единая сеть сообществ Чехии: работа, фушки, аренда, маркет, авто, услуги и общение." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="stage">
+    <div class="app step-city" id="app">
+      <header class="topbar">
+        <div class="brand-mini"><span class="dot"></span>CZHUB24 NETWORK</div>
+        <div class="clock" id="clock"></div>
+        <div class="langs"><button data-lang="ru" class="active">RU</button><i></i><button data-lang="cz">CZ</button><i></i><button data-lang="ua">UA</button><button class="menu" data-action="menu" aria-label="Menu">☰</button></div>
+      </header>
+
+      <aside class="leftbar">
+        <div class="logoBox">
+          <img src="./assets/logo.png" alt="CZHUB24" />
+          <div class="networkWord">NETWORK</div>
+          <div class="tagline" data-i18n="tagline">ВСЯ ЧЕХИЯ. ОДНА СЕТЬ.</div>
         </div>
-      </div>
-      <section class="hero-card" aria-labelledby="hero-title">
-        <div class="logo-wrap">
-          <img src="./assets/logo.png" alt="CZHUB24 logo" class="logo-image" onerror="this.style.display='none'"/>
-          <div class="logo-fallback" aria-hidden="true">CZHUB24</div>
-          <div class="chrome-shimmer" aria-hidden="true"></div>
-        </div>
-        <p class="eyebrow" id="eyebrow">Крупнейшее русскоязычное сообщество Чехии • Російсько-українська спільнота Чехії</p>
-        <h1 id="hero-title">Выберите платформу сообщества</h1>
+        <nav class="sideNav">
+          <button class="navBtn active" data-action="home"><span>⌂</span><b><span data-i18n="navHome">ГЛАВНАЯ</span><small data-i18n="navHomeSub">Добро пожаловать</small></b></button>
+          <button class="navBtn" data-action="find"><span>⌖</span><b><span data-i18n="navFind">НАЙТИ НУЖНОЕ</span><small data-i18n="navFindSub">Город и категория</small></b></button>
+          <button class="navBtn" data-action="communities"><span>♙</span><b><span data-i18n="navCommunities">СООБЩЕСТВА</span><small data-i18n="navCommunitiesSub">Все наши группы</small></b></button>
+          <button class="navBtn contestNav" data-action="contest"><span>□</span><b><span data-i18n="navContest">КОНКУРС</span><small data-i18n="navContestSub">Розыгрыш ноутбука</small></b></button>
+          <button class="navBtn" data-action="about"><span>ⓘ</span><b><span data-i18n="navAbout">О ПРОЕКТЕ</span><small data-i18n="navAboutSub">О CZHUB24</small></b></button>
+        </nav>
+        <section class="giveaway">
+          <div class="giveTitle" data-i18n="giveTitle">★ РОЗЫГРЫШ НОУТБУКА ★</div>
+          <div class="giveSub" data-i18n="giveSub">ВСТУПАЙ В TELEGRAM!</div>
+          <div class="laptopWrap"><img src="./assets/logo.png" alt="CZHUB24" /></div>
+          <button data-action="contest" class="giveBtn" data-i18n="participate">УЧАСТВОВАТЬ</button>
+          <div class="giveFoot" data-i18n="inviteFriends">ПРИГЛАСИ 3–5 ДРУЗЕЙ</div>
+          <div class="pager">● ○ ○ ○</div>
+        </section>
+        <div class="leftStats"><div><span data-i18n="networkStatus">СТАТУС СЕТИ</span><b><i class="onlineDot"></i>ONLINE</b></div><div><span data-i18n="launch">ЗАПУСК</span><b>2026</b></div></div>
+        <div class="socialMini"><a href="#" data-platform="telegram" aria-label="Telegram">➤</a><a href="#" data-platform="whatsapp" aria-label="WhatsApp">◉</a><a href="#" data-platform="viber" aria-label="Viber">◌</a><a href="#" data-action="share" aria-label="QR">▣</a></div>
+      </aside>
 
-        <div id="platform-buttons" class="platform-grid" aria-label="Платформы сообщества"></div>
+      <main class="mainArea" id="mainArea">
+        <div class="surrealField" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="flowTrail" id="flowTrail" aria-live="polite"><button data-flow-back="city">01 CITY</button><span>›</span><button data-flow-back="category" disabled>02 TOPIC</button><span>›</span><button disabled>03 LINK</button></div>
+        <div class="heroHeader"><h1><span data-i18n="chooseCity">ВЫБЕРИ ГОРОД</span> <em>▪</em></h1><p data-i18n="findWhat">и найди то, что нужно</p><div class="line"></div></div>
+        <section class="mapPanel" id="mapPanel">
+          <img class="mapArt" src="./assets/map-hi.png" alt="Карта Чехии CZHUB24" draggable="false" />
+          <div class="mapMask mapMaskTopLeft" aria-hidden="true"></div>
+          <div class="mapMask mapMaskTopRight" aria-hidden="true"></div>
+          <div class="mapMask mapMaskBottom" aria-hidden="true"></div>
+          <div id="cityLayer" class="cityLayer"></div>
+          <button class="miniCard" data-action="allCzechia"><div><b data-i18n="allCzechia">ВСЯ ЧЕХИЯ</b><small data-i18n="oneNetworkAds">Единая сеть объявлений</small></div><div class="miniMap"></div></button>
+        </section>
+        <section class="categorySection">
+          <div class="sectionTitle"><span></span><strong data-i18n="chooseCategory">ВЫБЕРИ КАТЕГОРИЮ</strong><span></span></div>
+          <div id="categoryRow" class="categoryRow"></div>
+          <div class="progress"><i></i></div>
+        </section>
+        <section class="platformSection">
+          <div class="sectionTitle"><span></span><strong data-i18n="whereOpen">ГДЕ УДОБНЕЕ ОТКРЫТЬ?</strong><span></span></div>
+          <div class="platformRow">
+            <button class="platform telegram" data-platform="telegram"><span class="plane">➤</span><b>TELEGRAM</b><small data-i18n="recommendedContest">РЕКОМЕНДУЕМ · КОНКУРС</small></button>
+            <button class="platform whatsapp" data-platform="whatsapp"><span>◉</span><b>WHATSAPP</b></button>
+            <button class="platform viber" data-platform="viber"><span>◌</span><b>VIBER</b></button>
+          </div>
+        </section>
+      </main>
 
-        <p class="description">
-          Работа • Жильё • Фушки • Маркет • Авто • Услуги
-        </p>
-      </section>
+      <aside class="rightbar">
+        <h2>CZHUB24<br><span data-i18n="inNumbers">В ЦИФРАХ</span></h2>
+        <div class="metric"><span>⌖</span><div><small data-i18n="cities">ГОРОДОВ</small><b>13+</b></div></div>
+        <div class="metric"><span>⌂</span><div><small data-i18n="categories">КАТЕГОРИЙ</small><b>20+</b></div></div>
+        <div class="metric"><span>♙</span><div><small data-i18n="messengers">МЕССЕНДЖЕРОВ</small><b>3</b></div></div>
+        <div class="metric"><span>◉</span><div><small data-i18n="status">СТАТУС</small><b class="statusOnline">ONLINE</b></div></div>
+        <button class="qrCard" data-action="share"><b data-i18n="scanQr">СКАНИРУЙ QR</b><small data-i18n="shareFriends">и делись с друзьями</small><img src="./assets/qr.png" alt="QR" /></button>
+      </aside>
 
-      <section class="projects-card" aria-labelledby="projects-title">
-        <div class="section-heading">
-          <p class="section-label">Наши проекты</p>
-          <h2 id="projects-title">Будущие сообщества и направления</h2>
-        </div>
-        <div id="projects-list" class="projects-list"></div>
-      </section>
-    </main>
+      <footer class="footer"><span>© 2026 CZHUB24 NETWORK</span><span data-i18n="footerText">ВСЯ ЧЕХИЯ • ОДНА СЕТЬ • ЛЮДИ • ВОЗМОЖНОСТИ • БУДУЩЕЕ</span><span>MADE WITH ♥ IN PRAGUE</span></footer>
 
-    <script src="./app.js"></script>
-  </body>
+      <nav class="mobileNav" aria-label="Mobile navigation">
+        <button data-action="find"><span>⌖</span><small data-i18n="mFind">НАЙТИ</small></button>
+        <button data-action="communities"><span>♙</span><small data-i18n="mGroups">ГРУППЫ</small></button>
+        <button class="mobileContest" data-action="contest"><span>★</span><small data-i18n="mContest">КОНКУРС</small></button>
+        <button data-action="about"><span>ⓘ</span><small data-i18n="mAbout">О НАС</small></button>
+      </nav>
+
+      <div id="toast" class="toast"></div>
+      <div id="debugPanel" class="debugPanel" hidden></div>
+    </div>
+  </div>
+
+  <div id="modal" class="modal" hidden><div class="modalCard"><button id="closeModal" class="closeModal">×</button><div class="modalKicker">CZHUB24 // NETWORK WINDOW</div><h2 id="modalTitle"></h2><div id="modalBody"></div></div></div>
+  <script src="./app.js" defer></script>
+</body>
 </html>

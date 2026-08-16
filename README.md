@@ -1,22 +1,15 @@
-# CZHUB24 — Static Link Hub
+# CZHUB24 v9 — Surreal Flow
 
-Minimal static site for CZHUB24 — mobile-first link hub for Telegram / WhatsApp / Viber with bilingual RU/UA support and simple analytics.
+Interactive single-screen CZHUB24 hub with cinematic step navigation:
+city → category → messenger.
 
-Quick start (from repository root):
-
-```powershell
-cd czhub24-site
-python -m http.server 8000
-# then open http://127.0.0.1:8000/
-```
-
-Customisation:
-- Edit `data/site-data.json` to add platforms and projects. Use `name` and `meta` as objects with `ru`/`ua` fields for bilingual content.
-- Optional: set `analyticsEndpoint` in `data/site-data.json` to a URL that accepts POST JSON ({platform, time, lang}). The client will try `navigator.sendBeacon` first.
-
-Deployment:
-- Static hosting works well: GitHub Pages, Netlify, Vercel.
-
-Notes:
-- Counters persist in localStorage. For centralized analytics, provide an `analyticsEndpoint`.
-- Place a logo image at `assets/logo.png` to use the stylized avatar; otherwise a text fallback is shown.
+- RU / CZ / UA language switching
+- animated map focus on selected city
+- category reveal after city selection
+- messenger reveal after category selection
+- softer surreal blue/violet palette
+- Telegram / WhatsApp / Viber routing
+- contest flow with 3–5 referrals
+- local analytics event log + optional analyticsEndpoint
+- QR source tracking via ?src=...
+- responsive desktop and phone layouts
