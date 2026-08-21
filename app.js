@@ -2,7 +2,7 @@
 const CFG={
   analyticsEndpoint:'https://cishmtektnuvjxyuetvm.supabase.co/rest/v1/analytics_events',
   supabaseKey:'sb_publishable_F9lya4xhIKkXcpjhWXvaNg_l-nBZT8g',
-  contestUrl:'https://t.me/czhub24',
+  contestUrl:'https://t.me/CZHUB24Bot?start=contest',
   platforms:{telegram:'https://t.me/czhub24',whatsapp:'https://chat.whatsapp.com/G0YbngLJZs62JZ8QLef0mj',viber:'https://invite.viber.com/?g2=AQBEyu%2BkYLoW5lbe0flu%2BPnAUDrUZUpv64chJAs9SWpAFdDAF2TzTHJG0yqUd2xn'},
   routes:{},
   cities:[
@@ -45,7 +45,7 @@ const cityName=(id)=>I18N[state.lang].cityNames[id]||id;
 const catName=(id)=>I18N[state.lang].catNames[id]||id;
 
 function track(type,data={}){
-  const evt={version:'v10-supabase',type,ts:new Date().toISOString(),source,campaign,sessionId:sid,city:state.city?.id||null,category:state.category?.id||null,lang:state.lang,device:innerWidth<=600?'phone':innerWidth<=1024?'tablet':'desktop',viewport:`${innerWidth}x${innerHeight}`,...data};
+  const evt={version:'v11-routing',type,ts:new Date().toISOString(),source,campaign,sessionId:sid,city:state.city?.id||null,category:state.category?.id||null,lang:state.lang,device:innerWidth<=600?'phone':innerWidth<=1024?'tablet':'desktop',viewport:`${innerWidth}x${innerHeight}`,...data};
   try{const k='czhub24_analytics',a=JSON.parse(localStorage.getItem(k)||'[]');a.push(evt);localStorage.setItem(k,JSON.stringify(a.slice(-3000)));renderDebug()}catch{}
   if(CFG.analyticsEndpoint&&CFG.supabaseKey){
     fetch(CFG.analyticsEndpoint,{method:'POST',headers:{'apikey':CFG.supabaseKey,'Authorization':`Bearer ${CFG.supabaseKey}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({data:evt}),keepalive:true}).catch(()=>{});
@@ -55,7 +55,6 @@ function toast(text){const e=$('#toast');e.textContent=text;e.classList.add('sho
 function modal(title,html){$('#modalTitle').textContent=title;$('#modalBody').innerHTML=html;$('#modal').hidden=false;track('panel_open',{panel:title})}
 function close(){ $('#modal').hidden=true }
 $('#closeModal').onclick=close; $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')close()}); addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-
 
 function setStep(step){
   const app=$('#app');
@@ -114,11 +113,19 @@ function selectCategory(c,el){
   $('#categoryRow').dataset.selectedLabel=state.category.name.toUpperCase(); setStep('platform'); track('category_select',{category:c.id});
 }
 function showMore(){if(!state.city){toast(t('chooseCityToast'));return}modal(t('allCategories'),`<div class="modalGrid">${CFG.extra.map(id=>`<button class="modalBtn" data-extra="${id}">${catName(id)}</button>`).join('')}</div>`); $$('[data-extra]',$('#modalBody')).forEach(b=>b.onclick=()=>{selectCategory({id:b.dataset.extra},null);close()})}
-function route(p){const key=`${state.city?.id||'czechia'}.${state.category?.id||'all'}.${p}`;return CFG.routes[key]||CFG.platforms[p]}
+function route(p){
+  const city=state.city?.id||'czechia', category=state.category?.id||'all';
+  const keys=[`${city}.${category}.${p}`,`${city}.all.${p}`,`czechia.${category}.${p}`,`czechia.all.${p}`];
+  for(const key of keys)if(CFG.routes[key])return CFG.routes[key];
+  return CFG.platforms[p];
+}
 function openPlatform(p){if(!state.city){toast(t('chooseCityToast'));return}if(!state.category){toast(t('chooseCategoryToast'));return}const url=route(p);track('platform_click',{platform:p,url});window.open(url,'_blank','noopener,noreferrer')}
 $$('[data-platform]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();openPlatform(b.dataset.platform)}));
 
-function contest(){modal(t('contestTitle'),`<div class="contestBox"><img src="./assets/logo.png" alt="CZHUB24"><div><p><b>${t('contestLead')}</b></p><ol><li>${t('contest1')}</li><li>${t('contest2')}</li><li>${t('contest3')}</li><li>${t('contest4')}</li></ol><a class="cta" href="${CFG.contestUrl}" target="_blank" rel="noopener">${t('contestCta')}</a></div></div>`)}
+function contest(){
+  modal(t('contestTitle'),`<div class="contestBox"><img src="./assets/logo.png" alt="CZHUB24"><div><p><b>${t('contestLead')}</b></p><ol><li>${t('contest1')}</li><li>${t('contest2')}</li><li>${t('contest3')}</li><li>${t('contest4')}</li></ol><a class="cta" href="${CFG.contestUrl}" target="_blank" rel="noopener">${t('contestCta')}</a></div></div>`);
+  const cta=$('#modalBody .cta'); if(cta)cta.addEventListener('click',()=>track('giveaway_click',{url:CFG.contestUrl}));
+}
 function about(){modal(t('aboutTitle'),`<p><b>${t('about1')}</b></p><p>${t('about2')}</p>`)}
 function communities(){modal(t('communitiesTitle'),`<div class="modalGrid"><a class="modalLink" href="${CFG.platforms.telegram}" target="_blank">${t('tgDesc')}</a><a class="modalLink" href="${CFG.platforms.whatsapp}" target="_blank">${t('waDesc')}</a><a class="modalLink" href="${CFG.platforms.viber}" target="_blank">${t('vbDesc')}</a></div>`)}
 function share(){modal(t('qrTitle'),`<p style="text-align:center"><img src="./assets/qr.png" style="width:220px;max-width:70%;background:white;padding:8px" alt="QR"></p><p style="text-align:center">${t('qrText')}</p>`)}
@@ -127,7 +134,6 @@ function menu(){modal(t('menuTitle'),`<div class="modalGrid menuGrid"><button cl
 const actions={home,find:()=>{state.city=null;state.category=null;$$('.cityNode,.catBtn').forEach(x=>x.classList.remove('active'));resetFlow();track('find_open')},communities,contest,about,share,menu,allCzechia:selectAllCzechia};
 $$('[data-action]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();actions[b.dataset.action]?.()}));
 $$('[data-lang]').forEach(b=>b.addEventListener('click',()=>applyLanguage(b.dataset.lang)));
-
 
 $$('[data-flow-back]').forEach(b=>b.addEventListener('click',()=>{
   const target=b.dataset.flowBack;
