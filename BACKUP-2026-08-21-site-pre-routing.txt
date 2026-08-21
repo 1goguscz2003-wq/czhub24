@@ -1,0 +1,5 @@
+CZHUB24 site backup marker before routing/contest URL change.
+Current stable production site before change.
+app.js SHA: c15c3d91d2816e4d238f07021f14dc2a8878a5c7
+Date: 2026-08-21
+Rollback: restore app.js blob SHA above or branch backup if available.
