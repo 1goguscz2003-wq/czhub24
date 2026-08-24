@@ -1,0 +1,2 @@
+Visual V15 checkpoint before direct integration.
+Date: 2026-08-24
