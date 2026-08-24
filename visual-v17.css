@@ -1,0 +1,39 @@
+/* CZHUB24 V17 — visible starspace + cursor star magic. Visual layer only. */
+:root{--v17-deep:#01040a;--v17-blue:#79afff;--v17-violet:#6658ff}
+body{background:#01040a!important}
+/* The old V16 sections were too opaque and hid the stars. Keep only translucent atmosphere. */
+.hero,.section{background:radial-gradient(circle at 72% 24%,rgba(31,92,225,.12),transparent 26%),radial-gradient(circle at 24% 78%,rgba(87,51,190,.08),transparent 30%),linear-gradient(180deg,rgba(1,4,10,.30),rgba(2,7,17,.54) 55%,rgba(1,4,10,.42))!important}
+.hero{isolation:isolate}.section{isolation:isolate;background-attachment:scroll!important}
+/* Dedicated high-contrast star layer, behind content but above page background. */
+.v17Starspace{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,rgba(26,61,128,.10),transparent 50%)}
+.v17Starspace:before,.v17Starspace:after{content:"";position:absolute;inset:-8%;background-image:radial-gradient(circle,#f3f9ff 0 1.15px,transparent 1.55px),radial-gradient(circle,#7eb2ff 0 1px,transparent 1.4px),radial-gradient(circle,#d8eaff 0 .8px,transparent 1.25px);background-size:135px 135px,215px 215px,315px 315px;background-position:13px 19px,71px 104px,157px 47px;opacity:.70;filter:drop-shadow(0 0 4px rgba(83,144,255,.8));animation:v17SkyDrift 44s linear infinite,v17SkyTwinkle 5.2s ease-in-out infinite alternate}
+.v17Starspace:after{background-size:255px 255px,385px 385px,535px 535px;background-position:109px 183px,19px 61px,281px 118px;opacity:.48;animation-duration:63s,7.2s;animation-direction:reverse,alternate-reverse}
+@keyframes v17SkyDrift{to{transform:translate3d(-60px,46px,0)}}
+@keyframes v17SkyTwinkle{from{opacity:.38;filter:brightness(.72)}to{opacity:.9;filter:brightness(1.35)}}
+/* Four-point stars matching the CZHUB24 wallpaper language. */
+.v17CrossStar{position:absolute;width:4px;height:4px;border-radius:50%;background:#eef7ff;box-shadow:0 0 8px #67a5ff,0 0 22px rgba(64,116,255,.62);opacity:.7;animation:v17CrossPulse var(--dur,4.6s) ease-in-out infinite}
+.v17CrossStar:before,.v17CrossStar:after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.v17CrossStar:before{width:var(--ray,30px);height:1px;background:linear-gradient(90deg,transparent,#ddecff 40%,#fff 50%,#ddecff 60%,transparent)}
+.v17CrossStar:after{height:var(--ray,30px);width:1px;background:linear-gradient(180deg,transparent,#ddecff 40%,#fff 50%,#ddecff 60%,transparent)}
+@keyframes v17CrossPulse{0%,100%{opacity:.24;transform:scale(.72) rotate(0)}50%{opacity:1;transform:scale(1.24) rotate(45deg)}}
+/* Constellation-like arcs in the background. */
+.v17OrbitLine{position:fixed;z-index:2;pointer-events:none;border:1px solid rgba(76,135,232,.08);border-radius:50%;width:72vw;height:72vw;left:14vw;top:8vh;box-shadow:0 0 40px rgba(48,100,210,.025);animation:v17OrbitSlow 34s linear infinite}
+.v17OrbitLine.o2{width:94vw;height:94vw;left:3vw;top:-4vh;border-color:rgba(104,91,225,.06);animation-duration:49s;animation-direction:reverse}
+@keyframes v17OrbitSlow{to{transform:rotate(360deg)}}
+/* Mouse magic: sparks and tiny four-point stars actually follow the pointer. */
+.v17MouseStar{position:fixed;z-index:110;pointer-events:none;width:4px;height:4px;border-radius:50%;background:#f7fbff;box-shadow:0 0 6px #83b7ff,0 0 15px rgba(67,113,255,.65);transform:translate(-50%,-50%);animation:v17MouseDie .82s cubic-bezier(.2,.7,.2,1) forwards}
+.v17MouseStar:before,.v17MouseStar:after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.v17MouseStar:before{height:1px;width:var(--r,18px);background:linear-gradient(90deg,transparent,#e7f3ff,transparent)}
+.v17MouseStar:after{width:1px;height:var(--r,18px);background:linear-gradient(180deg,transparent,#e7f3ff,transparent)}
+@keyframes v17MouseDie{0%{opacity:1;scale:.6}40%{opacity:1;scale:1.15}100%{opacity:0;translate:var(--mx,0) var(--my,18px);scale:.15;rotate:55deg}}
+.v17MouseLine{position:fixed;z-index:108;pointer-events:none;height:1px;transform-origin:0 50%;background:linear-gradient(90deg,rgba(120,176,255,.50),transparent);filter:drop-shadow(0 0 3px rgba(81,139,255,.5));animation:v17LineDie .42s ease-out forwards}@keyframes v17LineDie{to{opacity:0;filter:blur(1px)}}
+/* Make the mouse aura visible but not a generic giant bloom. */
+.v16CursorAura{z-index:2!important;width:420px!important;height:420px!important;background:radial-gradient(circle,rgba(83,145,255,.065),rgba(94,67,215,.025) 30%,transparent 66%)!important;filter:none!important}
+/* Existing content stays above stars. */
+header,.hero,.ticker,.section,footer,.overlay,.result,.qrFloat{z-index:3}
+header,.qrFloat{z-index:60}.overlay{z-index:120}.result{z-index:130}.gate{z-index:190}
+/* Cards get a subtle star-glint rather than plain glow. */
+.node,.cityRow,.catItem,.platformCards article,.choiceGrid button{position:relative}
+.node:focus-visible,.cityRow:focus-visible,.catItem:focus-visible{outline:1px solid #85b6ff;outline-offset:3px}
+@media(max-width:900px){.v17Starspace:before,.v17Starspace:after{opacity:.58}.v17OrbitLine{opacity:.55}.v17MouseStar,.v17MouseLine{display:none}}
+@media(prefers-reduced-motion:reduce){.v17Starspace:before,.v17Starspace:after,.v17CrossStar,.v17OrbitLine{animation:none!important}.v17MouseStar,.v17MouseLine{display:none}}
