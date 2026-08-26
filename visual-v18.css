@@ -1,0 +1,97 @@
+/* CZHUB24 V18 — compact menu cards, stable messenger transition, faster landmark previews */
+
+/* MENU: compact card instead of huge typography */
+#menuOverlay .panel.menuPanel{
+  width:min(760px,92vw)!important;
+  max-height:82vh!important;
+  padding:72px 18px 18px!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+  background:linear-gradient(160deg,rgba(5,14,26,.985),rgba(1,6,13,.995))!important;
+  border:1px solid rgba(91,152,245,.30)!important;
+  box-shadow:0 35px 110px rgba(0,0,0,.70),inset 0 0 45px rgba(56,107,215,.04)!important;
+  overflow:hidden!important;
+}
+#menuOverlay .menuPanel>button:not(.close){
+  min-height:104px!important;
+  margin:0!important;
+  padding:17px 18px!important;
+  border:1px solid rgba(76,133,219,.20)!important;
+  border-radius:9px!important;
+  background:linear-gradient(145deg,rgba(8,20,35,.96),rgba(3,10,19,.98))!important;
+  color:#e7f1f8!important;
+  text-align:left!important;
+  font-family:"Segoe UI",Arial,sans-serif!important;
+  font-size:18px!important;
+  line-height:1.15!important;
+  font-weight:680!important;
+  letter-spacing:-.01em!important;
+  cursor:pointer!important;
+  transition:transform .28s cubic-bezier(.16,1,.3,1),border-color .25s,background .25s,box-shadow .25s!important;
+}
+#menuOverlay .menuPanel>button:not(.close):before{
+  content:"ОТКРЫТЬ";
+  display:block;
+  margin-bottom:10px;
+  color:#6f8da7;
+  font:700 7px ui-monospace,monospace;
+  letter-spacing:1.4px;
+}
+#menuOverlay .menuPanel>button:not(.close):hover{
+  padding-left:18px!important;
+  transform:translateY(-4px)!important;
+  border-color:rgba(112,174,255,.64)!important;
+  background:linear-gradient(145deg,rgba(11,29,50,.98),rgba(4,12,24,.99))!important;
+  box-shadow:0 12px 35px rgba(0,0,0,.28),0 0 22px rgba(55,113,226,.10)!important;
+}
+#menuOverlay .menuPanel>button[data-jump="about"]{grid-column:1/-1!important}
+#menuOverlay .menuPanel>.close{right:16px!important;top:16px!important}
+
+/* Messenger transition: epic but bounded. It never grows to half-screen and stays there. */
+.gate.run{
+  display:grid!important;
+  background:radial-gradient(circle at center,rgba(22,54,125,.18),#01040a 48%,#010309 100%)!important;
+  animation:v18GateBackdrop 2.0s ease forwards!important;
+}
+.gate.run .gateCore{
+  width:110px!important;height:110px!important;
+  animation:v18GateCore 1.65s cubic-bezier(.16,1,.3,1) forwards,v18GateSpin .46s linear infinite!important;
+  background:repeating-conic-gradient(from 0deg,transparent 0 11deg,#285bd4 12deg 15deg,#9cc8ff 16deg 18deg,transparent 19deg 29deg)!important;
+  box-shadow:0 0 42px rgba(57,119,255,.58),0 0 105px rgba(44,91,218,.24)!important;
+}
+.gate.run strong{animation:v18GateText 1.65s .12s ease forwards!important}
+@keyframes v18GateSpin{to{rotate:360deg}}
+@keyframes v18GateCore{
+  0%{width:90px;height:90px;opacity:.15;filter:blur(5px)}
+  25%{opacity:1;filter:none}
+  63%{width:min(52vmin,520px);height:min(52vmin,520px);opacity:1}
+  100%{width:min(58vmin,590px);height:min(58vmin,590px);opacity:0;filter:blur(10px)}
+}
+@keyframes v18GateBackdrop{0%,68%{opacity:1}100%{opacity:0}}
+@keyframes v18GateText{0%{opacity:0;scale:.85}28%,65%{opacity:1;scale:1}100%{opacity:0;scale:1.08;letter-spacing:.13em}}
+
+/* Platform cards do not unexpectedly enlarge after reveal. */
+.result.open .resultPlatforms button{
+  transform-origin:center!important;
+  will-change:transform,opacity,filter;
+}
+.result.open .resultPlatforms button:hover{transform:translateY(-5px)!important;scale:1!important}
+
+/* Preview image rendering */
+.cityPreview,.catPreview{background-color:#020811!important;background-repeat:no-repeat!important;background-position:center!important;background-size:cover!important}
+.cityPreview{transition:background-image .10s linear,filter .24s ease!important}
+.catPreview{transition:background-image .10s linear,filter .24s ease!important}
+.previewLandmark{
+  position:absolute;z-index:3;left:27px;bottom:104px;
+  color:#9bb1c1;font:700 8px ui-monospace,monospace;letter-spacing:1.1px;
+  text-transform:uppercase;text-shadow:0 1px 12px #000;
+}
+.cityPreview.v18Loading,.catPreview.v18Loading{filter:brightness(.72)}
+
+@media(max-width:720px){
+ #menuOverlay .panel.menuPanel{grid-template-columns:1fr!important;padding:64px 12px 12px!important}
+ #menuOverlay .menuPanel>button:not(.close){min-height:76px!important;font-size:15px!important}
+ #menuOverlay .menuPanel>button[data-jump="about"]{grid-column:auto!important}
+ .previewLandmark{display:none}
+}
