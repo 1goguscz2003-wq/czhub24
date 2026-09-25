@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#01050a">
 <title>CZHUB24 — Вся Чехия. Одна сеть.</title>
-<meta name="description" content="CZHUB24 — работа, фушки, аренда, маркет, авто, услуги и сообщества по всей Чехии.">
-<link rel="stylesheet" href="./site-v15.css?v=18"><link rel="stylesheet" href="./visual-v16.css?v=18"><link rel="stylesheet" href="./visual-v17.css?v=18">
-<link rel="stylesheet" href="./visual-v18.css?v=18">
+<meta name="description" content="CZHUB24 — работа, фушки, аренда, маркет, авто, услуги и сообщества по всей Чехии.">\n<link rel="preconnect" href="https://commons.wikimedia.org">\n<link rel="preconnect" href="https://upload.wikimedia.org">\n<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="./czhub24-v2.css?v=2.0">
 </head>
 <body>
-<div class="stars" id="stars"></div><div class="progress" id="progress"></div><div class="v16Nebula n1"></div><div class="v16Nebula n2"></div><div class="v16Meteor"></div><div class="v16Meteor m2"></div><div class="v16Horizon" id="v16Horizon"></div><div class="v16CursorAura" id="v16CursorAura"></div>
+<canvas id="cosmosCanvas" aria-hidden="true"></canvas><div class="spaceFog" aria-hidden="true"></div><div class="progress" id="progress"></div>
 <header>
   <button class="brand" data-home aria-label="CZHUB24 — на главную"><img src="./assets/logo-header.png" alt="CZHUB24"></button>
   <nav class="crumb" id="crumb"><button data-home>ЧЕХИЯ</button><i>→</i><button id="crumbCity">ГОРОД</button><i>→</i><button id="crumbCat">КАТЕГОРИЯ</button></nav>
@@ -74,7 +73,7 @@
 
 <div class="overlay" id="cityOverlay"><div class="panel"><button class="close" data-close>×</button><h2 id="cityOverlayTitle">ВЫБЕРИ ГОРОД</h2><p id="cityOverlaySub"></p><div class="choiceGrid" id="cityGrid"></div></div></div>
 <div class="overlay" id="extraOverlay"><div class="panel"><button class="close" data-close>×</button><h2>ЕЩЁ КАТЕГОРИИ</h2><p>Выбери направление — затем город.</p><div class="choiceGrid" id="extraGrid"></div></div></div>
-<div class="overlay" id="menuOverlay"><div class="panel menuPanel"><button class="close" data-close>×</button><button data-jump="cities">01 / ГОРОДА</button><button data-jump="categories">02 / КАТЕГОРИИ</button><button data-jump="communities">03 / СООБЩЕСТВА</button><button data-jump="giveaway">04 / КОНКУРС</button><button data-jump="about">05 / О ПРОЕКТЕ</button></div></div>
+<div class="overlay" id="menuOverlay"><div class="panel menuPanel"><button class="close" data-close>×</button><button class="navCard" data-jump="cities"><span>01 / НАВИГАЦИЯ</span><b>ГОРОДА</b><small>Выбрать город и посмотреть его направление</small></button><button class="navCard" data-jump="categories"><span>02 / НАВИГАЦИЯ</span><b>КАТЕГОРИИ</b><small>Работа, фушки, аренда, услуги и другое</small></button><button class="navCard" data-jump="communities"><span>03 / НАВИГАЦИЯ</span><b>СООБЩЕСТВА</b><small>Telegram · WhatsApp · Viber</small></button><button class="navCard" data-jump="giveaway"><span>04 / НАВИГАЦИЯ</span><b>КОНКУРС</b><small>Перейти к розыгрышу CZHUB24</small></button><button class="navCard wide" data-jump="about"><span>05 / НАВИГАЦИЯ</span><b>О ПРОЕКТЕ</b><small>Что такое CZHUB24 и как устроена сеть</small></button></div></div>
 <div class="overlay qrOverlay" id="qrOverlay"><div class="qrPanel"><button class="close" data-close>×</button><h2>ПОДЕЛИТЬСЯ CZHUB24</h2><p>Покажи этот QR — он ведёт на сайт CZHUB24.</p><img src="./assets/qr.png" alt="QR CZHUB24"><button class="btn" data-close>ГОТОВО</button></div></div>
 
 <div class="result" id="result"><button class="close resultClose" id="resultClose">×</button><div class="resultHead"><small id="resultCode"></small><h2 id="resultTitle"></h2><p>Выбери, где удобнее открыть.</p></div><div class="resultPlatforms">
@@ -84,8 +83,6 @@
 </div></div>
 
 <div class="gate" id="gate"><div class="gateCore"></div><strong id="gateText">CZHUB24</strong></div>
-<div class="fx" id="fx"></div>
-<script src="./site-v15.js?v=18"></script><script src="./visual-v16.js?v=18"></script><script src="./visual-v17.js?v=18"></script>
-<script src="./visual-v18.js?v=18"></script>
+<script src="./czhub24-v2.js?v=2.0"></script>
 </body>
 </html>
